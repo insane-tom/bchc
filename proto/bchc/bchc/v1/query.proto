@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package bchc.bchc.v1;
 
 import "amino/amino.proto";
@@ -15,6 +16,11 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/bchc/bchc/v1/params";
   }
+
+  // SayHello Queries a list of SayHello items.
+  rpc SayHello(QuerySayHelloRequest) returns (QuerySayHelloResponse) {
+    option (google.api.http).get = "/bchc/bchc/v1/say_hello/{name}";
+  }
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -27,4 +33,14 @@ message QueryParamsResponse {
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true
   ];
+}
+
+// QuerySayHelloRequest defines the QuerySayHelloRequest message.
+message QuerySayHelloRequest {
+  string name = 1;
+}
+
+// QuerySayHelloResponse defines the QuerySayHelloResponse message.
+message QuerySayHelloResponse {
+  string name = 1;
 }
