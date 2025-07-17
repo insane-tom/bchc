@@ -4,6 +4,7 @@ package bchc.bchc.v1;
 
 import "amino/amino.proto";
 import "bchc/bchc/v1/params.proto";
+import "bchc/bchc/v1/patient.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
@@ -20,6 +21,16 @@ service Query {
   // SayHello Queries a list of SayHello items.
   rpc SayHello(QuerySayHelloRequest) returns (QuerySayHelloResponse) {
     option (google.api.http).get = "/bchc/bchc/v1/say_hello/{name}";
+  }
+
+  // ListPatient Queries a list of Patient items.
+  rpc GetPatient(QueryGetPatientRequest) returns (QueryGetPatientResponse) {
+    option (google.api.http).get = "/bchc/bchc/v1/patient/{id}";
+  }
+
+  // ListPatient defines the ListPatient RPC.
+  rpc ListPatient(QueryAllPatientRequest) returns (QueryAllPatientResponse) {
+    option (google.api.http).get = "/bchc/bchc/v1/patient";
   }
 }
 
@@ -43,4 +54,25 @@ message QuerySayHelloRequest {
 // QuerySayHelloResponse defines the QuerySayHelloResponse message.
 message QuerySayHelloResponse {
   string name = 1;
+}
+
+// QueryGetPatientRequest defines the QueryGetPatientRequest message.
+message QueryGetPatientRequest {
+  uint64 id = 1;
+}
+
+// QueryGetPatientResponse defines the QueryGetPatientResponse message.
+message QueryGetPatientResponse {
+  Patient patient = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryAllPatientRequest defines the QueryAllPatientRequest message.
+message QueryAllPatientRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryAllPatientResponse defines the QueryAllPatientResponse message.
+message QueryAllPatientResponse {
+  repeated Patient patient = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

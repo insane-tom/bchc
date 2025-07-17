@@ -24,6 +24,18 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "name"}},
 				},
 
+				{
+					RpcMethod: "ListPatient",
+					Use:       "list-patient",
+					Short:     "List all patient",
+				},
+				{
+					RpcMethod:      "GetPatient",
+					Use:            "get-patient [id]",
+					Short:          "Gets a patient by id",
+					Alias:          []string{"show-patient"},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
@@ -34,6 +46,24 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				{
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
+				},
+				{
+					RpcMethod:      "CreatePatient",
+					Use:            "create-patient [name] [hospital] [disease]",
+					Short:          "Create patient",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "name"}, {ProtoField: "hospital"}, {ProtoField: "disease"}},
+				},
+				{
+					RpcMethod:      "UpdatePatient",
+					Use:            "update-patient [id] [name] [hospital] [disease]",
+					Short:          "Update patient",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "name"}, {ProtoField: "hospital"}, {ProtoField: "disease"}},
+				},
+				{
+					RpcMethod:      "DeletePatient",
+					Use:            "delete-patient [id]",
+					Short:          "Delete patient",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

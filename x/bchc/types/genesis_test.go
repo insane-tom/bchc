@@ -21,8 +21,31 @@ func TestGenesisState_Validate(t *testing.T) {
 		},
 		{
 			desc:     "valid genesis state",
-			genState: &types.GenesisState{},
-			valid:    true,
+			genState: &types.GenesisState{PatientList: []types.Patient{{Id: 0}, {Id: 1}}, PatientCount: 2}, valid: true,
+		}, {
+			desc: "duplicated patient",
+			genState: &types.GenesisState{
+				PatientList: []types.Patient{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		}, {
+			desc: "invalid patient count",
+			genState: &types.GenesisState{
+				PatientList: []types.Patient{
+					{
+						Id: 1,
+					},
+				},
+				PatientCount: 0,
+			},
+			valid: false,
 		},
 	}
 	for _, tc := range tests {

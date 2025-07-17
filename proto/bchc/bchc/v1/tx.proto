@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package bchc.bchc.v1;
 
 import "amino/amino.proto";
@@ -16,6 +17,15 @@ service Msg {
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+
+  // CreatePatient defines the CreatePatient RPC.
+  rpc CreatePatient(MsgCreatePatient) returns (MsgCreatePatientResponse);
+
+  // UpdatePatient defines the UpdatePatient RPC.
+  rpc UpdatePatient(MsgUpdatePatient) returns (MsgUpdatePatientResponse);
+
+  // DeletePatient defines the DeletePatient RPC.
+  rpc DeletePatient(MsgDeletePatient) returns (MsgDeletePatientResponse);
 }
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
@@ -27,7 +37,7 @@ message MsgUpdateParams {
   string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
   // params defines the module parameters to update.
-  //
+
   // NOTE: All parameters must be supplied.
   Params params = 2 [
     (gogoproto.nullable) = false,
@@ -38,3 +48,40 @@ message MsgUpdateParams {
 // MsgUpdateParamsResponse defines the response structure for executing a
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
+
+// MsgCreatePatient defines the MsgCreatePatient message.
+message MsgCreatePatient {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string name = 2;
+  string hospital = 3;
+  string disease = 4;
+}
+
+// MsgCreatePatientResponse defines the MsgCreatePatientResponse message.
+message MsgCreatePatientResponse {
+  uint64 id = 1;
+}
+
+// MsgUpdatePatient defines the MsgUpdatePatient message.
+message MsgUpdatePatient {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  uint64 id = 2;
+  string name = 3;
+  string hospital = 4;
+  string disease = 5;
+}
+
+// MsgUpdatePatientResponse defines the MsgUpdatePatientResponse message.
+message MsgUpdatePatientResponse {}
+
+// MsgDeletePatient defines the MsgDeletePatient message.
+message MsgDeletePatient {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  uint64 id = 2;
+}
+
+// MsgDeletePatientResponse defines the MsgDeletePatientResponse message.
+message MsgDeletePatientResponse {}

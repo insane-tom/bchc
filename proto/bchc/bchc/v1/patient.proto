@@ -1,0 +1,13 @@
+syntax = "proto3";
+package bchc.bchc.v1;
+
+option go_package = "bchc/x/bchc/types";
+
+// Patient defines the Patient message.
+message Patient {
+  uint64 id = 1;
+  string name = 2;
+  string hospital = 3;
+  string disease = 4;
+  string creator = 5;
+}
