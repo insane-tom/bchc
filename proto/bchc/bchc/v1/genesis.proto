@@ -1,0 +1,17 @@
+syntax = "proto3";
+package bchc.bchc.v1;
+
+import "amino/amino.proto";
+import "bchc/bchc/v1/params.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "bchc/x/bchc/types";
+
+// GenesisState defines the bchc module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
