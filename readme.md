@@ -1,7 +1,7 @@
 # bchc
 **bchc** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
 
-Before starting with the patient data security
+Avant ajout de cosmwasm
 
 ## Get started
 
